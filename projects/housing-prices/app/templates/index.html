@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediksi Harga Rumah</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Prediksi Harga Rumah</h2>
+    <form method="post">
+
+        <!-- Fitur numerik -->
+        <label>Luas Tanah: <input type="number" step="any" name="Luas Tanah" required></label>
+        <label>Luas Bangunan: <input type="number" step="any" name="Luas Bangunan" required></label>
+        <label>Kamar Mandi: <input type="number" step="1" name="Kamar mandi" required></label>
+        <label>Kamar Tidur: <input type="number" step="1" name="Kamar" required></label>
+        <label>Lantai: <input type="number" step="1" name="Lantai" required></label>
+        <label>Daya Listrik (watt): <input type="number" step="any" name="Listrik" required></label>
+
+        <!-- Dropdown Kecamatan -->
+        <label for="Kecamatan">Kecamatan:</label>
+        <select name="Kecamatan" id="Kecamatan" required>
+            {% for kec in kecamatan_list %}
+                <option value="{{ kec }}">{{ kec }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Dropdown Desa -->
+        <label for="Desa">Desa:</label>
+        <select name="Desa" id="Desa" required>
+        </select>
+
+        <script>
+            const kecamatanDesaMap = {{ kecamatan_desa_map|tojson }};
+            const kecamatanSelect = document.getElementById("Kecamatan");
+            const desaSelect = document.getElementById("Desa");
+
+            function updateDesaOptions() {
+                const selectedKec = kecamatanSelect.value;
+                const desaList = kecamatanDesaMap[selectedKec] || [];
+                desaSelect.innerHTML = "";
+                desaList.forEach(desa => {
+                    const opt = document.createElement("option");
+                    opt.value = desa;
+                    opt.textContent = desa;
+                    desaSelect.appendChild(opt);
+                });
+            }
+
+            kecamatanSelect.addEventListener("change", updateDesaOptions);
+            window.addEventListener("load", updateDesaOptions); // default saat load
+        </script>
+
+
+        <!-- Kepemilikan Tanah -->
+        <label>Kepemilikan Tanah:
+            <select name="Kepemilikan Tanah" required>
+                <option value="SHM">SHM</option>
+                <option value="HGB">HGB</option>
+                <option value="Girik">Girik</option>
+            </select>
+        </label>
+
+        <!-- Sumber Air -->
+        <label>Sumber Air:
+            <select name="Sumber Air" required>
+                <option value="Air PAM">Air PAM</option>
+                <option value="Air PDAM">Air PDAM</option>
+                <option value="Air tanah">Air tanah</option>
+            </select>
+        </label>
+
+        <!-- Fitur boolean -->
+        <fieldset>
+            <legend>Fasilitas</legend>
+            <label><input type="checkbox" name="Ac"> AC</label>
+            <label><input type="checkbox" name="Akses 24/7"> Akses 24/7</label>
+            <label><input type="checkbox" name="Akses mobil"> Akses mobil</label>
+            <label><input type="checkbox" name="Atm center"> ATM Center</label>
+            <label><input type="checkbox" name="Balkon"> Balkon</label>
+            <label><input type="checkbox" name="Bathtub"> Bathtub</label>
+            <label><input type="checkbox" name="Carport"> Carport</label>
+            <label><input type="checkbox" name="Cctv"> CCTV</label>
+            <label><input type="checkbox" name="Garasi"> Garasi</label>
+            <label><input type="checkbox" name="Jogging track"> Jogging Track</label>
+            <label><input type="checkbox" name="Kasur"> Kasur</label>
+            <label><input type="checkbox" name="Keamanan 24 jam"> Keamanan 24 jam</label>
+            <label><input type="checkbox" name="Kitchen set"> Kitchen set</label>
+            <label><input type="checkbox" name="Lemari pakaian"> Lemari pakaian</label>
+            <label><input type="checkbox" name="Pompa air"> Pompa air</label>
+            <label><input type="checkbox" name="Shower"> Shower</label>
+            <label><input type="checkbox" name="Tangki air"> Tangki air</label>
+            <label><input type="checkbox" name="Water heater"> Water heater</label>
+        </fieldset>
+
+        <button type="submit">Prediksi Harga</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result">
+            <p>Prediksi Harga (dalam log): {{ prediction }}</p>
+            <p>Perkiraan Harga (Rp): Rp {{ harga_rp }}</p>
+        </div>
+        <div class="input-summary">
+            <h3>Data Input Pengguna:</h3>
+            <div class="grid-input">
+                {% for key, value in form_data.items() %}
+                    <div class="grid-item">
+                        <span class="label">{{ key }}</span>:
+                        <span class="value">{{ value }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f7f9fc;
+    color: #333;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+form {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+label {
+    display: inline-block;
+    margin: 8px 10px;
+    font-size: 14px;
+}
+
+input[type="number"], 
+select {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+fieldset {
+    margin-top: 20px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+legend {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+fieldset label {
+    margin-right: 15px;
+    font-size: 13px;
+}
+
+button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    font-size: 15px;
+    background: #3498db;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+.result {
+    max-width: 800px;
+    margin: 25px auto;
+    background: #ecf7ec;
+    border: 1px solid #c6e6c6;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #2c662d;
+}
+
+.input-summary {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.input-summary h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+/* Grid 2 kolom */
+.grid-input {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px 20px;
+}
+
+.grid-item {
+    background: #fff;
+    padding: 8px 10px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+}
+
+.grid-item .label {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.grid-item .value {
+    color: #444;
+    margin-left: 5px;
+}
+
+
